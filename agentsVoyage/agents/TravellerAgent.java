@@ -5,10 +5,12 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.OptionalDouble;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import comportements.ContractNetAchat;
 import data.ComposedJourney;
+import data.Journey;
 import data.JourneysList;
 import gui.TravellerGui;
 import jade.core.AID;
@@ -69,6 +71,15 @@ public class TravellerAgent extends GuiAgent {
 				if (msg != null) {
 					println("Message recu sur le topic " + topic.getLocalName() + ". Contenu " + msg.getContent()
 							+ " émis par " + msg.getSender().getLocalName());
+					// todo: code pas testé mais j'ai la foi
+					if(topic.getLocalName().equals("TRAFFIC NEWS")) {
+						System.out.println(msg.getContent());
+						Predicate<Journey> prediK = journey -> journey.getStart().toLowerCase().charAt(0) == msg.getContent().charAt(0);
+						Predicate<Journey> prediL = journey -> journey.getStop().toLowerCase().charAt(0) == msg.getContent().charAt(1);
+						Predicate<Journey> prediM = journey -> journey.getStop().toLowerCase().charAt(0) == msg.getContent().charAt(0);
+						Predicate<Journey> prediN = journey -> journey.getStart().toLowerCase().charAt(0) == msg.getContent().charAt(1);
+						myJourney.removeIf(prediK.and(prediL).or(prediM.and(prediN)));
+					}
 				} else { block();}
 			}
 		});
@@ -145,7 +156,7 @@ public class TravellerAgent extends GuiAgent {
 				journeys.sort(Comparator.comparingDouble(ComposedJourney::getCost));
 				break;
 			case "duration-cost":
-				//TODO: replace below to make a compromise between cost and confort...
+				//TODO: Compromis entre la durée et le cout
 				journeys.sort(Comparator.comparingDouble(ComposedJourney::getCost));
 				break;
 			default:

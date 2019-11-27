@@ -32,7 +32,7 @@ public class Journey implements Cloneable, Serializable, Comparable<Journey> {
 	int confort;
 	/** name of the service that propose the journey */
 	String proposedBy;
-	/** nb of remaining places (not used) */
+	/** nb of remaining places. */
 	private int places = 1;
     /**some fields to improve the memory management*/
     private static String TO = " to ";
@@ -51,6 +51,7 @@ public class Journey implements Cloneable, Serializable, Comparable<Journey> {
 		departureDate = _departureDate;
 		duration = _duration;
 		arrivalDate = Journey.addTime(departureDate, duration);
+
 	}
 
 	Journey(final String _start, final String _stop, final String _means, final int _departureDate, final int _duration,
@@ -190,7 +191,8 @@ public class Journey implements Cloneable, Serializable, Comparable<Journey> {
 	@Override
 	public String toString() {
 	    return new StringBuilder(Journey.TRAJECTFROM).append(start).append(Journey.TO).
-                append(stop).append(Journey.BY).append(means).append(Journey.DEPARTURE).
+                append(stop).append(Journey.BY).append(means).append(" [PLACES: ").append(places).
+				append("] ").append(Journey.DEPARTURE).
                 append(departureDate).append(Journey.ARRIVAL).append(arrivalDate).
                 append(Journey.COST).append(cost).append(Journey.PROPOSEDBY).append(proposedBy).toString();
 	}
@@ -201,6 +203,10 @@ public class Journey implements Cloneable, Serializable, Comparable<Journey> {
 
 	public void setPlaces(int places) {
 		this.places = places;
+	}
+
+	public void placeDecrement(){
+		this.places--;
 	}
 
 	@Override

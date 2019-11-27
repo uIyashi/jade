@@ -18,6 +18,7 @@ import launch.LaunchSimu;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.function.Predicate;
 import java.util.logging.Level;
 
 /**
@@ -69,6 +70,18 @@ public class AgenceAgent extends GuiAgent {
                 if (msg != null) {
                     println("Message recu sur le topic " + topic.getLocalName() + ". Contenu " + msg.getContent()
                             + " émis par " + msg.getSender().getLocalName());
+                    if(topic.getLocalName().equals("TRAFFIC NEWS")){
+                        System.out.println(msg.getContent());
+                        // todo: not a todo; c'est pour repérer ou on suppr les chemins
+                        Predicate<Journey> prediK = journey -> journey.getStart().toLowerCase().charAt(0) == msg.getContent().charAt(0);
+                        Predicate<Journey> prediL = journey -> journey.getStop().toLowerCase().charAt(0) == msg.getContent().charAt(1);
+                        Predicate<Journey> prediM = journey -> journey.getStop().toLowerCase().charAt(0) == msg.getContent().charAt(0);
+                        Predicate<Journey> prediN = journey -> journey.getStart().toLowerCase().charAt(0) == msg.getContent().charAt(1);
+                        catalog.removeIf(prediK.and(prediL).or(prediM.and(prediN)));
+                        /*
+                        CE CODE MARCHE
+                         */
+                    }
                 } else {
                     block();
                 }
@@ -131,6 +144,18 @@ public class AgenceAgent extends GuiAgent {
                 int frequence = (nbRepetitions == 0) ? 0 : Integer.parseInt(nextLine[9].trim());
                 Journey firstJourney = new Journey(origine, destination, means, departureDate, duration, cost,
                         co2, confort);
+                // #todo: not a todo; Déclaration du nombre de place
+                switch (means) {
+                    case "car":
+                        firstJourney.setPlaces(3);
+                        break;
+                    case "bus":
+                        firstJourney.setPlaces(50);
+                        break;
+                    case "train":
+                        firstJourney.setPlaces(200);
+                        break;
+                }
                 firstJourney.setProposedBy(this.getLocalName());
                 window.println(firstJourney.toString());
                 catalog.addJourney(firstJourney);

@@ -3,6 +3,7 @@ package data;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 import jade.core.AID;
 
@@ -99,6 +100,10 @@ public class ComposedJourney implements Serializable {
 		stop = journeys.get(nb - 1).stop;
 		arrivalDate = journeys.get(nb - 1).arrivalDate;
 		duration = ((arrivalDate / 100) * 60 + arrivalDate % 100) - ((departureDate / 100) * 60 + departureDate % 100);
+	}
+
+	public void removeIf(Predicate<Journey> p){
+		journeys.removeIf(p);
 	}
 
 	//some String constants to improve the memory management

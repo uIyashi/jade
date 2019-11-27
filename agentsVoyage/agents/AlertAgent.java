@@ -73,7 +73,12 @@ public class AlertAgent extends GuiAgent {
 		}
 		if (eventFromGui.getType() == AlertAgent.ALERT) {
 			ACLMessage alert = new ACLMessage(ACLMessage.INFORM);
-			alert.setContent("une alerte meteo !! ");
+			// #todo: not a Todo; Envoyer le chemin KO
+			// une chaine de deux lettres? genre "AB": le chemin A - B est KO
+			//alert.setContent("une alerte meteo !! ");
+			//System.out.println(eventFromGui.getParameter(0));
+			//System.out.println(eventFromGui.getParameter(1));
+			alert.setContent(eventFromGui.getParameter(0).toString() + eventFromGui.getParameter(1).toString());
 			alert.addReceiver(topic);
 			send(alert);
 			println("j'ai envoyé une alerte...");

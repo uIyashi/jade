@@ -1,4 +1,4 @@
-# jade
+# jade mais c'est un étudiant qui fait ça
 
 Liste de supports pour le cours de programmation orientée agent en Jade
 

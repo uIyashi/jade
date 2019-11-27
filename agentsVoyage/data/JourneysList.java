@@ -141,6 +141,8 @@ public class JourneysList implements Serializable {
 	public void removeIf(Predicate<Journey> p)
 	{
 		catalog.values().forEach(l->l.removeIf(p));
+		System.out.println(this.toString());
+		System.out.println("--------------------------------------------");
 	}
 
 	

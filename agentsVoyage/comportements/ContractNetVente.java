@@ -78,11 +78,15 @@ public class ContractNetVente extends  ContractNetResponder
 		inform.setPerformative(ACLMessage.INFORM);
 		window.println(" RECU UN ACCORD DE "+accept.getSender().getLocalName() +" !!!" );
 		ArrayList<Journey> liste = null;
-		try { liste = (ArrayList<Journey>)accept.getContentObject(); }
+		try {
+			liste = (ArrayList<Journey>)accept.getContentObject();
+		}
 		catch (UnreadableException e) { e.printStackTrace(); }
 		if(liste!=null)
 		{
 			window.println("Il veut " );
+			// #TODO: Décrémenter les places?
+			liste.forEach(j->j.placeDecrement());
 			liste.forEach(j->window.println(j.toString()));
 			window.println("  !!!!" );
 			inform.setContent("ok pour ces "+liste.size()+" tickets...");
