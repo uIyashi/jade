@@ -71,7 +71,7 @@ public class TravellerAgent extends GuiAgent {
 				if (msg != null) {
 					println("Message recu sur le topic " + topic.getLocalName() + ". Contenu " + msg.getContent()
 							+ " émis par " + msg.getSender().getLocalName());
-					// todo: code pas testé mais j'ai la foi
+					// todo: Rend un ticket
 					if(topic.getLocalName().equals("TRAFFIC NEWS")) {
 						System.out.println(msg.getContent());
 						Predicate<Journey> prediK = journey -> journey.getStart().toLowerCase().charAt(0) == msg.getContent().charAt(0);
@@ -83,11 +83,7 @@ public class TravellerAgent extends GuiAgent {
 				} else { block();}
 			}
 		});
-		
 	}
-
-
-
 
 	/**ecoute des evenement de type enregistrement en tant qu'agence aupres des pages jaunes*/
 	private void detectAgences()

@@ -45,6 +45,8 @@ public class LaunchSimu {
 		
 		var lesAgents = new StringBuilder();
 		lesAgents.append("client1:agents.TravellerAgent;");
+		lesAgents.append("client2:agents.TravellerAgent;");
+		lesAgents.append("client3:agents.TravellerAgent;");
 		lesAgents.append("agentCar:agents.AgenceAgent(car.csv);");
 		lesAgents.append("agentBus:agents.AgenceAgent(bus.csv);");
 		lesAgents.append("agentTrain:agents.AgenceAgent(train.csv);");
