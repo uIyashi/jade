@@ -86,7 +86,7 @@ public class ContractNetVente extends  ContractNetResponder
 		{
 			window.println("Il veut " );
 			// #TODO: Décrémenter les places?
-			liste.forEach(j->j.placeDecrement());
+			liste.forEach(j->catalog.decrementTicket(j.getStart(), j.getStop(), j.getDepartureDate()));
 			liste.forEach(j->window.println(j.toString()));
 			window.println("  !!!!" );
 			inform.setContent("ok pour ces "+liste.size()+" tickets...");

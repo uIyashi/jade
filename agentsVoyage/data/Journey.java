@@ -205,8 +205,13 @@ public class Journey implements Cloneable, Serializable, Comparable<Journey> {
 		this.places = places;
 	}
 
+	// Enlève ou rajoute un ticket a un voyage.
 	public void placeDecrement(){
 		this.places--;
+	}
+
+	public void placeIncrement() {
+		this.places++;
 	}
 
 	@Override

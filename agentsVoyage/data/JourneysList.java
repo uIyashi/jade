@@ -145,6 +145,30 @@ public class JourneysList implements Serializable {
 		System.out.println("--------------------------------------------");
 	}
 
+	// TODO: not a todo; Enlève un ticket d'un voyage
+	public void decrementTicket(String from, String to, int heure){
+	    catalog.values().forEach(journeys -> {
+            for (int i = 0; i < journeys.size(); i++) {
+                if(journeys.get(i).getStart().toLowerCase().equals(from.toLowerCase()) &&
+                journeys.get(i).getStop().toLowerCase().equals(to.toLowerCase()) &&
+                journeys.get(i).getDepartureDate() == heure){
+                    journeys.get(i).placeDecrement();
+                }
+            }
+        });
+    }
+
+    public void incrementTicket(String from, String to, int heure){
+        catalog.values().forEach(journeys -> {
+            for (int i = 0; i < journeys.size(); i++) {
+                if(journeys.get(i).getStart().toLowerCase().equals(from.toLowerCase()) &&
+                        journeys.get(i).getStop().toLowerCase().equals(to.toLowerCase()) &&
+                        journeys.get(i).getDepartureDate() == heure){
+                    journeys.get(i).placeIncrement();
+                }
+            }
+        });
+    }
 	
 	@Override
 	public String toString() {

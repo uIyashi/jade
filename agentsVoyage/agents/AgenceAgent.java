@@ -89,7 +89,6 @@ public class AgenceAgent extends GuiAgent {
         });
         //FIN REGLAGE ECOUTE DE LA RADIO
 
-
         // attendre une demande de catalogue & achat
         var template = MessageTemplate.and(
                 MessageTemplate.MatchProtocol(FIPANames.InteractionProtocol.FIPA_CONTRACT_NET),
@@ -109,6 +108,11 @@ public class AgenceAgent extends GuiAgent {
         }
         LaunchSimu.logger.log(Level.INFO, "Agent Agence : " + getAID().getName() + " quitte la plateforme.");
         window.dispose();
+    }
+
+    // Reduction d'un ticket -- Mais c'est pas le bon. Voir dans JourneysList
+    public void decrementTicket(String de, String vers, int heure){
+        catalog.decrementTicket(de, vers, heure);
     }
 
     /**
